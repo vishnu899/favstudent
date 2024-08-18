@@ -28,6 +28,7 @@
 }
 .favorite-container{
   background-color: purple;
+  display: none;
 }
 .favorite-container li{
   display: flex;

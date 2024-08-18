@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 
-
 function App() {
-  const [students,setstudents] = useState(['Manoj','Aslam','Sanjay','Vishnu'
-  
-
-]);
+  const [students,setstudents] = useState(['Manoj', 'Sanjay', 'Aslam', 'Vishnu', 'Mike']);
   const [favorites, setFavorites] = useState([]);
 
   const toggleFavorite = (student) => {
@@ -25,52 +21,67 @@ function App() {
 
   function add()
   {
-    setstudents([...students,newstu])
+   setstudents([...students,newstu])
   }
+
+   const[fav,setfav] = useState(true) 
+   const[st,setst] = useState(true) 
+
+function handleaddd()
+{
+  setfav(!fav)
+  setst(!st)
+}
+
+
+function vishnu()
+{
+ setfav(fav)
+  setst(st)
+}
+
+  
   
   return (
     <div className="app-container">
-        <nav className='nav flex gap-20 bg-red-500'>
-            <h1>Student List</h1>
-            <h1>Favourite Student List</h1>
+      <nav className='nav flex gap-20 bg-red-500'>
+            <h1 id='st' onClick={vishnu}>Student List</h1>
+            <h1 id='fa' onClick={handleaddd}>Favourite Student List</h1>
         </nav>
         <div className="input">
             <input value={newstu} onChange={handlechange} type="text" />
             <button onClick={add}>Add</button>
         </div>
-      <div className="list-container">
+      <div className="list-container" style={{display:st?"block":"none"}}>
         
         <ul>
           {students.map((student, index) => (
             <li key={student} className="student-item">
-             
-              <span className="student-name">{index + 1}.{student}</span>
-              <div className='add'>
-              <button id='one'
+              <span className="student-number">{index + 1}.{student}</span>
+              
+              <button
                 onClick={() => toggleFavorite(student)}
                 className={favorites.includes(student) ? 'remove-btn' : 'add-btn'}
               >
-                {favorites.includes(student) ?'Added to Favorite' : 'Add to Favorite'}
+                {favorites.includes(student) ? 'Added to  Favorite' : 'Add to Favorite'}
               </button>
-              
-              </div>
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="favorite-container">
-        
+      <div className="favorite-container" style={{display:fav?"none":"block"}}>
+        <h2>Favorite Students</h2>
         <ul>
           {favorites.map((student, index) => (
             <li key={student} className="student-item">
-             
-              <span className="student-name">{index + 1}.{student}</span>
+              <span className="student-number">{index + 1}.{student}</span>
+              
               <button
                 onClick={() => toggleFavorite(student)}
                 className="remove-btn"
               >
-                Remove from Favourite
+                Remove
               </button>
             </li>
           ))}
@@ -78,6 +89,8 @@ function App() {
       </div>
     </div>
   );
+
+
 }
 
 export default App;
